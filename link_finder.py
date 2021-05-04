@@ -10,15 +10,15 @@ from link_renderer import LinkRenderer, RendererOptions
 
 
 class FinderOptions:
-    def __init__(self, ignore_list=None, using_hugo=False) -> None:
+    def __init__(self, ignore_list: List[str] = None, host: str = None) -> None:
         if ignore_list is None:
             ignore_list = []
         self.ignore_list = ignore_list
-        self.using_hugo = using_hugo
+        self.host = host
 
 def find_links(file_path: str, options: FinderOptions):
     # credit to https://github.com/MatMoore/markdown-external-link-finder
-    render_opts = RendererOptions(ignore=options.ignore_list)
+    render_opts = RendererOptions(ignore=options.ignore_list, host=options.host)
     link_renderer = LinkRenderer(render_opts)
     renderer = mistune.Markdown(renderer=link_renderer)
 
@@ -33,7 +33,7 @@ def generate_output():
     try:
         files = os.environ["INPUT_FILES"].split(",")
     except KeyError:
-        logging.error("The `files` input was not set. Expected a comma separated list of absolute file paths.")
+        logging.error("The `files` input was not set. I expected a comma separated list of absolute file paths.")
         sys.exit(1)
 
     try:
@@ -41,7 +41,12 @@ def generate_output():
     except KeyError:
         url_blacklist: List[str] = []
 
-    opts = FinderOptions(ignore_list=url_blacklist, using_hugo=True)
+    try:
+        host = os.environ["INPUT_HOST"]
+    except KeyError:
+        host = None
+
+    opts = FinderOptions(ignore_list=url_blacklist, host=host)
     links: List[str] = []
     for file_path in files:
         if file_path.endswith(".md"):

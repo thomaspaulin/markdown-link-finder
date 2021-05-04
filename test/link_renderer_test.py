@@ -39,5 +39,11 @@ class LinkRendererTests(unittest.TestCase):
         sut.link('{{< relref "file" >}}', "", "")
         self.assertEqual(0, len(sut.urls))
 
+    def test_ignores_own_host(self):
+        opts = RendererOptions([], host="thomaspaulin.me")
+        sut = LinkRenderer(opts)
+        sut.link("https://thomaspaulin.me/foo/bar", "", "")
+        self.assertEqual(0, len(sut.urls))
+
 if __name__ == '__main__':
     unittest.main()

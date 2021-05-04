@@ -1,14 +1,16 @@
 name: 'Markdown Link Finder'
-description: "Search within files for links present in markdown's link format"
+description: "Search within files for markdown formatted links"
 author: 'Thomas Paulin'
 inputs: 
   files:
-    description: 'A comma separated list of files to search within. These should be the absolute file paths.  Any files which do not end in *.md will be ignored'
+    description: 'A comma separated list of files to search. These should be the absolute file paths. Any files which do not end in *.md are ignored.'
     required: true
   url_blacklist:
-    description: 'A comma separated list of hosts to which should not be archived. This represents URLs which are considered reliable and are unlikely rot e.g., en.wikipedia.org'
+    description: 'A comma separated list of hosts to which should not be archived. This represents URLs which are reliable and are unlikely rot e.g., en.wikipedia.org.'
     required: false
-    default: ''
+  host:
+    description: "The host of the pages to be checked, e.g., en.wikipedia.org. Setting this input will cause the script to ignore links from the host, regardless of the ignore list's settings."
+    required: false
 outputs:
   links:
     description: 'The links found within the provided markdown files'
@@ -18,3 +20,4 @@ runs:
   args:
     - ${{ inputs.files }}
     - ${{ inputs.url_blacklist }}
+    - ${{ inputs.host }}

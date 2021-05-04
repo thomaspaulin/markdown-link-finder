@@ -9,11 +9,12 @@ def url_is_absolute(url):
 
 
 class RendererOptions:
-    def __init__(self, ignore: List[str]) -> None:
+    def __init__(self, ignore: List[str], host: str = None) -> None:
         if ignore is None:
             self.ignore = []
         else:
             self.ignore = ignore
+        self.host = host
         super().__init__()
 
 
@@ -23,8 +24,9 @@ class LinkRenderer(Renderer):
         self.opts = opts
         super().__init__()
 
-    def is_ignored(self, url) -> bool:
-        return urlsplit(url).netloc in self.opts.ignore
+    def is_ignored(self, url: str) -> bool:
+        host = urlsplit(url).netloc
+        return host in self.opts.ignore or self.opts.host == host
 
     def is_duplicate(self, url) -> bool:
         return url in self.urls
