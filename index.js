@@ -4,14 +4,12 @@ const github = require('@actions/github');
 const parse = require('parse-markdown-links');
 
 
-function ignore(link, ignoreList) {
-    let url;
-    try {
-        url = new URL(link);
-    } catch (e) {
-        url = new URL(link);
-    }
-    return ignoreList.includes(url.host);
+function isBlacklisted(link, blacklist) {
+    const url = new URL(link);
+    const host = url.host.startsWith("www.")
+        ? url.host.substring(4)
+        : url.host;
+    return blacklist.includes(host);
 }
 
 function parseLinks(files, ignoreList, host) {
@@ -25,7 +23,8 @@ function parseLinks(files, ignoreList, host) {
             };
             const text = fs.readFileSync(f, opts);
             const parsedLinks = parse(text);
-            const filteredLinks = parsedLinks.filter(l => !ignore(l, [...ignoreList, host]));
+            const blacklist = host ? [...ignoreList, host] : [...ignoreList];
+            const filteredLinks = parsedLinks.filter(l => !isBlacklisted(l, blacklist));
             links = [...links, ...filteredLinks];
         }
     }
