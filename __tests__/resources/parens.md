@@ -1,0 +1,1 @@
+(a) notation solves my problems in a simple manner that is applicable for everyone. It does this by adding an archive link in the form of "(a)" after every link. [Milan Griffes describe it in more detail](https://www.flightfromperfection.com/(a).html) [(a)](https://web.archive.org/web/20210113084039/https://www.flightfromperfection.com/(a).html).
