@@ -160,6 +160,7 @@ bower_components
 build/Release
 
 # Dependency directories
+node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -206,15 +207,11 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Storybook build outputs
 .out
 .storybook-out
 storybook-static
-
-# rollup.js default build output
-dist/
 
 # Gatsby files
 .cache/

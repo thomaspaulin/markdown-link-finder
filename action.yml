@@ -16,4 +16,4 @@ outputs:
     description: 'The links found within the provided markdown files'
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: 'dist/index.js'
