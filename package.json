@@ -11,7 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@actions/core": "^1.2.7",
-    "@actions/github": "^4.0.0",
     "jest": "^26.6.3",
     "parse-markdown-links": "^1.0.4"
   },

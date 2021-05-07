@@ -1,6 +1,5 @@
 const fs = require('fs');
 const core = require('@actions/core');
-const github = require('@actions/github');
 const parse = require('parse-markdown-links');
 
 
