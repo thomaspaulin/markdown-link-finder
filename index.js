@@ -18,14 +18,16 @@ function parseLinks(files, ignoreList, host) {
     let links = [];
 
     for (const f of files) {
-        const opts = {
-            encoding: "utf8",
-            flag: "r"
-        };
-        const text = fs.readFileSync(f, opts);
-        const parsedLinks = parse(text);
-        const filteredLinks = parsedLinks.filter(l => !ignore(l, [...ignoreList, host]));
-        links = [...links, ...filteredLinks];
+        if (fs.existsSync(f) && fs.lstatSync(f).isFile()) {
+            const opts = {
+                encoding: "utf8",
+                flag: "r"
+            };
+            const text = fs.readFileSync(f, opts);
+            const parsedLinks = parse(text);
+            const filteredLinks = parsedLinks.filter(l => !ignore(l, [...ignoreList, host]));
+            links = [...links, ...filteredLinks];
+        }
     }
     return links;
 }
