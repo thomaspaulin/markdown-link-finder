@@ -31,10 +31,6 @@ function parseLinks(files, ignoreList, host) {
 }
 
 try {
-    // Get the JSON webhook payload for the event that triggered the workflow
-    const payload = JSON.stringify(github.context.payload, undefined, 2);
-    console.log(`The event payload: ${payload}`);
-
     const files = core.getInput("files").split(",");
     const ignoreList = core.getInput("url-blacklist").split(",");
     const host = core.getInput("host");
