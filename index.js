@@ -8,7 +8,8 @@ function isBlacklisted(link, blacklist) {
     const host = url.host.startsWith("www.")
         ? url.host.substring(4)
         : url.host;
-    return blacklist.includes(host);
+    const isHomepage = url.pathname.length <= 1;
+    return blacklist.includes(host) && isHomepage;
 }
 
 function parseLinks(files, ignoreList, host) {
