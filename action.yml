@@ -1,11 +1,11 @@
 name: 'Markdown Link Finder'
 description: "Search within files for markdown formatted links"
 author: 'Thomas Paulin'
-inputs: 
+inputs:
   files:
     description: 'A comma separated list of files to search. These should be the absolute file paths. Any files which do not end in *.md are ignored.'
     required: true
-  url_blacklist:
+  url-blacklist:
     description: 'A comma separated list of hosts to which should not be archived. This represents URLs which are reliable and are unlikely rot e.g., en.wikipedia.org.'
     required: false
   host:
@@ -15,9 +15,5 @@ outputs:
   links:
     description: 'The links found within the provided markdown files'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.files }}
-    - ${{ inputs.url_blacklist }}
-    - ${{ inputs.host }}
+  using: 'node12'
+  main: 'dist/index.js'
